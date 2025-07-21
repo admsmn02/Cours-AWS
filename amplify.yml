@@ -1,13 +1,29 @@
 version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - yum update -y
+        - yum install -y gcc openssl-devel bzip2-devel libffi-devel zlib-devel wget make
+        - wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
+        - tar xzf Python-3.13.0.tgz
+        - cd Python-3.13.0 && ./configure --enable-optimizations && make altinstall
+        - cd ..
+        - python3.13 -m pip install --user pipenv
+        - export PATH="$HOME/.local/bin:$PATH"
+        - export PIPENV_PYTHON=python3.13
+        - amplifyPush --simple
 frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        - nvm use 18
+        - corepack enable
+        - yarn cache clean
+        - yarn install
     build:
       commands:
-        - npm run build
-        - npm run test:run
+        - yarn build
   artifacts:
     baseDirectory: dist
     files:
