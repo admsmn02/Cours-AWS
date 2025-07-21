@@ -11,9 +11,9 @@ describe("App Component", () => {
     // Check if the counter button is rendered with initial count
     expect(screen.getByText("count is 0")).toBeInTheDocument();
 
-    // Check if the logos are rendered
-    expect(screen.getByAltText("Vite logo")).toBeInTheDocument();
-    expect(screen.getByAltText("React logo")).toBeInTheDocument();
+    // Check if the links are rendered
+    expect(screen.getByText("Test 1")).toBeInTheDocument();
+    expect(screen.getByText("Test 2")).toBeInTheDocument();
 
     // Check if the instruction text is rendered by looking for the code element
     expect(screen.getByText("src/App.tsx")).toBeInTheDocument();

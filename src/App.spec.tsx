@@ -15,9 +15,9 @@ describe("App Component", () => {
       screen.getByRole("button", { name: "count is 0" })
     ).toBeInTheDocument();
 
-    // Check if the logos are rendered
-    expect(screen.getByAltText("Vite logo")).toBeInTheDocument();
-    expect(screen.getByAltText("React logo")).toBeInTheDocument();
+    // Check if the links are rendered
+    expect(screen.getByText("Test 1")).toBeInTheDocument();
+    expect(screen.getByText("Test 2")).toBeInTheDocument();
   });
 
   it("increments counter when button is clicked multiple times", () => {

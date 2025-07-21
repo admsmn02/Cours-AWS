@@ -14,6 +14,11 @@ backend:
         - python3.13 -m pip install --user pipenv
         - export PATH="$HOME/.local/bin:$PATH"
         - export PIPENV_PYTHON=$HOME/python3.13/bin/python3.13
+        - echo "🧪 Exécution des tests Python..."
+        - cd amplify/backend/function/frontawsadam7a0543c5
+        - python3.13 -m pip install pytest pytest-cov pytest-mock
+        - python3.13 -m pytest tests/ -v --tb=short || echo "⚠️ Certains tests Python ont échoué mais le build continue"
+        - cd ../../../..
         - amplifyPush --simple
 frontend:
   phases:
@@ -25,6 +30,9 @@ frontend:
         - npm install
     build:
       commands:
+        - echo "🧪 Exécution des tests JavaScript/TypeScript..."
+        - npm run test:run
+        - echo "🏗️ Construction de l'application..."
         - npm run build
   artifacts:
     baseDirectory: dist
