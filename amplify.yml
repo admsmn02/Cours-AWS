@@ -3,15 +3,17 @@ backend:
   phases:
     build:
       commands:
-        - yum update -y
-        - yum install -y gcc openssl-devel bzip2-devel libffi-devel zlib-devel wget make
-        - wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
+        - curl -O https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
         - tar xzf Python-3.13.0.tgz
-        - cd Python-3.13.0 && ./configure --enable-optimizations && make altinstall
+        - cd Python-3.13.0
+        - ./configure --prefix=$HOME/python3.13 --enable-optimizations
+        - make -j$(nproc)
+        - make install
         - cd ..
+        - export PATH="$HOME/python3.13/bin:$PATH"
         - python3.13 -m pip install --user pipenv
         - export PATH="$HOME/.local/bin:$PATH"
-        - export PIPENV_PYTHON=python3.13
+        - export PIPENV_PYTHON=$HOME/python3.13/bin/python3.13
         - amplifyPush --simple
 frontend:
   phases:
